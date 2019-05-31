@@ -12,6 +12,12 @@
                             <div class="col-md-8 col-md-offset-2">
                                 <form class="form-horizontal" role="form" method="post" action="{{ route('register') }}">
                                 {{ csrf_field() }}
+                                    <div class="form-group">
+                                        <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">ID</label>
+                                        <div class="col-lg-10">
+                                            <div class="form-control">{{$client->id}}</div>
+                                        </div>
+                                    </div>
                                 <div class="form-group">
                                         <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">Names</label>
                                         <div class="col-lg-10">

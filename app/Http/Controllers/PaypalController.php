@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Account;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Validator;
@@ -154,19 +155,25 @@ class paypalController extends Controller
 
             $transactions=new Transactions();
             // $transactions->id=$result->id;
-            $transactions->amount=$result->transactions[0]->amount[0]->total;
-            $transactions->sender=$result->payer[0]->payer_info[0]->email;
-            $transactions->type=$result->payer[0]->payment_method;
-            $transactions->currency=$result->transactions[0]->amount[0]->currency;
+//            dd($result);
+            $transactions->trans_id=$result->id;
+            $transactions->amount=$result->transactions[0]->amount->total;
+            $transactions->sender=$result->payer->payer_info->email;
+            $transactions->type=$result->payer->payment_method;
+            $transactions->currency=$result->transactions[0]->amount->currency;
             $transactions->description=$result->transactions[0]->description;
             $transactions->fee='0';
             $transactions->client_id=1;
             $transactions->status=$result->state;
-            $transactions->receiver=$result->transactions[0]->payee[0]->email;
+            $transactions->receiver=$result->transactions[0]->payee->email;
 
             $transactions->Save();
-    
 
+            /** update balance **/
+            $client = auth()->guard('client')->user();
+            $acc_balance=Account::where('client_id',$client->id)->first();
+            $acc_balance->balance = $acc_balance->balance + $transactions->amount;
+            $acc_balance->Save();
 
             /** it's all right **/
             /** Here Write your database logic like that insert record or value in database if you want **/

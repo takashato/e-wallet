@@ -39,6 +39,10 @@ class TransactionController extends Controller
             // dd($remaining_balance);
             $receiver_contact=$request->input('contact');
             $receiver=Client::where('contact',$receiver_contact)->first();
+            if (!$receiver) {
+                \Session::put('error','Contact not found. '.$receiver_contact);
+                return redirect()->route('send');
+            }
             $receiver_account=Account::where('client_id',$receiver->id)->first();
             $receiver_current_bal=$receiver_account->balance;
             $receiver_account->balance=$receiver_current_bal+$amount;
@@ -75,7 +79,7 @@ class TransactionController extends Controller
     }
     public function cardDeposit(Request $request)
     {
-        \Stripe\Stripe::setApiKey("YOUR_STRIPE_API_KEY");
+        \Stripe\Stripe::setApiKey("pk_test_6FaD9OCVGXQB4S1PhbIsQUMj00gAJMNexY");
 
         try{
             

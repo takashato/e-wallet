@@ -2,8 +2,8 @@
 <?php 
 return array(
 /** set your paypal credential **/
-'client_id' =>'YOUR_PAYPAL_CLIENT_ID',
-'secret' => 'YOUR_PAYPAL_CLIENT_SECRET',
+'client_id' =>'ASYnwKAlODnYqqImZio0YoAktj-YDWp6ewhoZBh1dYibzgMeAVF19Z775b0L-cU3ZogTBdaw6vqXmHhv',
+'secret' => 'EPF59xP8DnImE-drDjL42CvmxUNxWsDPohm4g9XotzHaxfrEsAGIgEJBIcDnkzuBX_aJkgMcj5qr99C6',
 /**
 * SDK configuration 
 */
